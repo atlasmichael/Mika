@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AlbumRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album
@@ -15,6 +16,7 @@ class Album
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min:3)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 100)]
@@ -26,8 +28,17 @@ class Album
     #[ORM\Column(length: 255)]
     private ?string $lieu = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $date = null;
+
+    /**
+     * Construteur
+     */
+
+    public function __construct()
+    {
+        $this->date = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
