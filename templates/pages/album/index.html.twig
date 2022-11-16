@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Album{% endblock %}
+{% block body %}
+    <div class="container mt-4">
+        <h1>Mes Album</h1>
+
+        <div class="count mt-4">
+            <h4>Il y à {{ album.getTotalItemCount }} albums au total</h4>
+        </div>
+        
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>                
+                    <th scope="col">Nom</th>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Lieu</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for album in album %}
+                    <tr>                        
+                        <td>{{album.Nom}}</td>
+                        <td>{{album.Auteur}}</td>
+                        <td>{{album.Lieu}}</td>
+                        <td>{{album.Commentaire}}</td>
+                        <td>{{album.Date|date("d/m/Y")}}</td>
+                    </tr>         
+                {% endfor %}   
+            </tbody>
+        </table>
+            <div class="navigation d-flex justify-content-center">
+                {{ knp_pagination_render(album) }}
+            </div>
+    </div>           
+{% endblock %}
